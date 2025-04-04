@@ -13,7 +13,7 @@ type DrawerMobileProps = {
   marker: Marker;
 };
 
-const DrawerMobile = ({ marker }: DrawerMobileProps) => {
+function DrawerMobile({ marker }: DrawerMobileProps) {
   return (
     <Drawer>
       <DrawerTrigger>Open</DrawerTrigger>
@@ -28,7 +28,7 @@ const DrawerMobile = ({ marker }: DrawerMobileProps) => {
             <p>전화번호: {marker.phone}</p>
             <p>운영시간: {marker.time}</p>
             <p>가격: {marker.price}</p>
-            <p>홈페이지: {marker.homepage}</p>
+            <p>홈페이지: {marker.hompage}</p>
           </div>
         </div>
         <DrawerFooter>
@@ -37,6 +37,6 @@ const DrawerMobile = ({ marker }: DrawerMobileProps) => {
       </DrawerContent>
     </Drawer>
   );
-};
+}
 
 export default DrawerMobile;
