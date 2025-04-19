@@ -5,6 +5,7 @@ import { Globe, Menu, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import CornerPattern from './CornerPattern';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import Dropdown from './Dropdown';
 import LanguageDropdown from '../LanguageDropdown';
 
 const Header = () => {

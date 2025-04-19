@@ -3,12 +3,12 @@
 import { Search } from 'lucide-react';
 import { useRef } from 'react';
 
-const Input = ({ onSearch }: { onSearch: (query: string) => void }) => {
+const Input = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSearch = () => {
     const query = inputRef.current?.value || '';
-    onSearch(query);
+    console.log('Search: ', query);
   };
 
   return (
