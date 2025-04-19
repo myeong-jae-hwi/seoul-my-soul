@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getNightViewSpots } from '@/services/getNightViewSpots';
+import { getHistoricSpots } from '@/services/getHistoricSpots';
 import ItemCard from '@/components/common/ItemCard';
 import Input from '@/components/common/Input';
 import { useSearch } from '@/hooks/useSearch';
@@ -10,12 +10,12 @@ import Modal from '@/components/common/Modal';
 import ModalContent from '@/components/ModalContent';
 
 type SpotData = {
-  NUM: number;
-  TITLE: string;
+  SEQ: number;
+  TITLEKOR: string;
   img_src?: string;
 };
 
-const NightViewSpot = () => {
+const HistoricSite = () => {
   const [spots, setSpots] = useState<SpotData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,17 +26,17 @@ const NightViewSpot = () => {
 
   const { filteredItems, handleSearch, setFilteredItems } = useSearch({
     items: spots,
-    searchField: 'TITLE',
+    searchField: 'TITLEKOR',
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const data = await getNightViewSpots(1, 51);
-        // console.log(data.viewNightSpot.row);
-        setSpots(data.viewNightSpot.row);
-        setFilteredItems(data.viewNightSpot.row);
+        const data = await getHistoricSpots(1, 27);
+        // console.log(data.tbHanyangNearby.row);
+        setSpots(data.tbHanyangNearby.row);
+        setFilteredItems(data.tbHanyangNearby.row);
       } catch (error) {
         console.error('가져오기 실패:', error);
         setError('야경 명소 데이터를 불러오는데 실패했습니다.');
@@ -61,8 +61,8 @@ const NightViewSpot = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredItems.map(spot => (
-            <button key={spot.NUM} onClick={openModal}>
-              <ItemCard imgSrc={spot.img_src || undefined} text={spot.TITLE || ' '} />
+            <button key={spot.SEQ} onClick={openModal}>
+              <ItemCard imgSrc={spot.img_src || undefined} text={spot.TITLEKOR || ' '} />
             </button>
           ))}
         </div>
@@ -74,4 +74,4 @@ const NightViewSpot = () => {
   );
 };
 
-export default NightViewSpot;
+export default HistoricSite;
