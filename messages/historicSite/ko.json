@@ -1,12 +1,5 @@
 {
-  "DESCRIPTION": {
-    "TITLE": "제목",
-    "CONTENTS": "소개",
-    "NUM": "구간정보 번호",
-    "LO": "경도",
-    "LA": "위도"
-  },
-  "DATA": [
+  "historicSite": [
     {
       "num": 5,
       "lo": "126.966504",
