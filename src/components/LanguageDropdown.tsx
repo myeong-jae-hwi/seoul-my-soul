@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Dropdown from './common/Dropdown';
 import { languageOptions } from '@/constants/language';
-import { useRouter, usePathname } from 'next/navigation';
 
 type LanguageDropdownProps = {
   buttonClassName?: string;
@@ -12,8 +11,6 @@ type LanguageDropdownProps = {
 const LanguageDropdown: React.FC<LanguageDropdownProps> = () => {
   const [currentLanguage, setCurrentLanguage] = useState<string>('한국어');
   const [isMounted, setIsMounted] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
@@ -31,9 +28,6 @@ const LanguageDropdown: React.FC<LanguageDropdownProps> = () => {
     if (foundOption) {
       localStorage.setItem('language', foundOption.code);
       setCurrentLanguage(selectedLanguage);
-
-      const newPathname = pathname.replace(/^\/[^\/]+/, `/${foundOption.code}`);
-      router.push(newPathname);
     }
   };
 

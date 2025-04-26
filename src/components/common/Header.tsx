@@ -7,13 +7,10 @@ import CornerPattern from './CornerPattern';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import LanguageDropdown from '../LanguageDropdown';
 import { usePathname } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const tc = useTranslations('common.header');
 
   const handleOpenMenu = () => {
     setIsMenuOpen(true);
@@ -26,8 +23,7 @@ const Header = () => {
   const menuRef = useOutsideClick(() => setIsMenuOpen(false));
 
   const isActive = (path: string) => {
-    const pathSegments = pathname.split('/');
-    return pathSegments[pathSegments.length - 1] === path.replace('/', '');
+    return pathname === path;
   };
 
   return (
@@ -40,7 +36,7 @@ const Header = () => {
 
         <nav className="hidden lg:flex flex-row gap-16 text-lg">
           <Link href="/map" className="group relative" tabIndex={0}>
-            {tc('map')}
+            지도
             <span
               className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-1 bg-red transition-all duration-300 ${
                 isActive('/map') ? 'w-full' : 'w-0 group-hover:w-full'
@@ -48,7 +44,7 @@ const Header = () => {
             ></span>
           </Link>
           <Link href="/nightViewSpot" className="group relative" tabIndex={0}>
-            {tc('nightViewSpot')}
+            야경명소
             <span
               className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-1 bg-orange transition-all duration-300 ${
                 isActive('/nightViewSpot') ? 'w-full' : 'w-0 group-hover:w-full'
@@ -56,7 +52,7 @@ const Header = () => {
             ></span>
           </Link>
           <Link href="/market" className="group relative" tabIndex={0}>
-            {tc('market')}
+            전통시장
             <span
               className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-1 bg-yellow transition-all duration-300 ${
                 isActive('/market') ? 'w-full' : 'w-0 group-hover:w-full'
@@ -64,7 +60,7 @@ const Header = () => {
             ></span>
           </Link>
           <Link href="/historicSite" className="group relative" tabIndex={0}>
-            {tc('historicSite')}
+            유적지
             <span
               className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-1 bg-green transition-all duration-300 ${
                 isActive('/historicSite') ? 'w-full' : 'w-0 group-hover:w-full'
@@ -72,7 +68,7 @@ const Header = () => {
             ></span>
           </Link>
           <Link href="/menu" className="group relative" tabIndex={0}>
-            {tc('menu')}
+            메뉴
             <span
               className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 h-1 bg-blue transition-all duration-300 ${
                 isActive('/menu') ? 'w-full' : 'w-0 group-hover:w-full'
