@@ -1,5 +1,5 @@
 const Market = () => {
-  return <>Market</>;
+  return <></>;
 };
 
 export default Market;
