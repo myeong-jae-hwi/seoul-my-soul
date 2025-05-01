@@ -6,43 +6,11 @@ import Card from '@/components/map/Card';
 import DrawerMobile from '@/components/map/DrawerMobile';
 import { useEffect, useState } from 'react';
 import Dropdown from '@/components/common/Dropdown';
-// import nightData from '@/data/viewNightSpot_ko.json';
+import nightData from '@/data/viewNightSpot_ko.json';
 import marketData from '@/data/marketData.json';
 
 import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-
-// type MarketData = {
-//   name: string;
-//   location: string;
-//   latitude?: string;
-//   longitude?: string;
-// };
-
-type ViewSpotData = {
-  title?: string;
-  titlekor?: string;
-  name?: string;
-  la?: string;
-  lo?: string;
-  latitude?: string;
-  longitude?: string;
-  addr?: string;
-  tel_no?: string;
-  operating_time?: string;
-  entr_fee?: string;
-  url?: string;
-};
-
-type MarkerInfo = {
-  position: {
-    lat: number;
-    lng: number;
-  };
-  title: string;
-  location: string;
-  phone?: string;
-};
 
 const BasicMap = () => {
   const { locale } = useParams();
@@ -54,11 +22,12 @@ const BasicMap = () => {
   const [isMobile, setIsMobile] = useState(false);
   const options = [tm('option.night'), tm('option.history'), tm('option.store')];
 
-  const [data, setData] = useState<{ DATA: ViewSpotData[] }>({ DATA: [] });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [data, setData] = useState<any>(nightData);
   const [markerUrl, setMarkerUrl] = useState('/images/nightMarker.png');
 
   const [map, setMap] = useState<kakao.maps.Map | null>(null);
-  const [marketMarkers, setMarketMarkers] = useState<MarkerInfo[]>([]);
+  const [marketMarkers, setMarketMarkers] = useState([]);
   const [isMarket, setIsMarket] = useState(false);
 
   useKakaoLoader();
@@ -69,7 +38,7 @@ const BasicMap = () => {
       const initialData = (await import(`../../../../messages/nightViewSpot/${locale}.json`))
         .default;
 
-      // const initialOptions = await import(`../../../../messages/map/${locale}.json`);
+      const initialOptions = await import(`../../../../messages/map/${locale}.json`);
       setData(initialData);
     };
 
@@ -190,12 +159,15 @@ const BasicMap = () => {
             averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
             minLevel={10} // 클러스터 할 최소 지도 레벨
           >
-            {data.DATA.map((item: ViewSpotData, index: number) => (
+            {/* 기본 마커 찍기 로직 */}
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {console.log(data)}
+            {data.DATA.map((item: any, index: number) => (
               <MapMarker
                 key={index}
                 position={{
-                  lat: parseFloat(item.la || item.latitude || '0'),
-                  lng: parseFloat(item.lo || item.longitude || '0'),
+                  lat: parseFloat(item.la || item.latitude),
+                  lng: parseFloat(item.lo || item.longitude),
                 }}
                 image={{
                   src: markerUrl,
