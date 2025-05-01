@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import LightBackground from '@/components/mode/LightBackground';
-import { ThemeProvider } from 'next-themes';
 
 export const viewport = {
   themeColor: '#ffffff',
@@ -19,16 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko">
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className="font-gMedium min-h-screen bg-beige dark:bg-navy text-navy dark:text-lightBeige overflow-x-hidden">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LightBackground />
-          <main className="relative z-10">{children}</main>
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );
